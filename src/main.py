@@ -55,6 +55,22 @@ def build_message():
 						"text": ":quad_parrot: Quordle"
 					},
 					"url": "https://www.merriam-webster.com/games/quordle"
+				},
+				{
+					"type": "button",
+					"text": {
+						"type": "plain_text",
+						"text": ":10_10: Contexto"
+					},
+					"url": "https://contexto.me/"
+				},
+				{
+					"type": "button",
+					"text": {
+						"type": "plain_text",
+						"text": ":waffle: Waffle"
+					},
+					"url": "https://wafflegame.net/"
 				}
 			]
 		},
