@@ -71,6 +71,14 @@ def build_message():
 						"text": ":waffle: Waffle"
 					},
 					"url": "https://wafflegame.net/"
+				},
+				{
+					"type": "button",
+					"text": {
+						"type": "plain_text",
+						"text": ":cat-roomba-exceptionally-fast: Connections"
+					},
+					"url": "https://www.nytimes.com/games/connections"
 				}
 			]
 		},
