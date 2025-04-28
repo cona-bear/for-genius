@@ -79,6 +79,14 @@ def build_message():
 						"text": ":cat-roomba-exceptionally-fast: Connections"
 					},
 					"url": "https://www.nytimes.com/games/connections"
+				},
+				{
+					"type": "button",
+					"text": {
+						"type": "plain_text",
+						"text": ":maru_is_a_puppy: Numberle"
+					},
+					"url": "https://numberle.org/"
 				}
 			]
 		},
