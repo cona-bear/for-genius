@@ -20,18 +20,8 @@ def build_message():
 			"type": "header",
 			"text": {
 				"type": "plain_text",
-				"text": f"{today}"
+				"text": f"{today}  Are you geinus? Are you? Are you? Are U? RU?"
 			}
-		},
-		{
-			"type": "section",
-			"text": {
-				"type": "mrkdwn",
-				"text": ":ooh-left-top::ooh-right-top: \tAre you genius?\n:ooh-left-bottom::ooh-right-bottom: \tAre you? Are you? Are you?"
-			}
-		},
-		{
-			"type": "divider"
 		},
 		{
 			"type": "actions",
@@ -75,12 +65,7 @@ def build_message():
 						"text": ":waffle: Waffle"
 					},
 					"url": "https://wafflegame.net/"
-				}
-			]
-		},
-		{
-			"type": "actions",
-			"elements": [
+				},
 				{
 					"type": "button",
 					"text": {
