@@ -15,19 +15,23 @@ def build_message():
     kst = pytz.timezone("Asia/Seoul")
     today = datetime.datetime.now(kst).strftime("%m/%d")
 
-    return [{
+    return [
+		{
 			"type": "header",
 			"text": {
 				"type": "plain_text",
-				"text": f":maru_is_a_puppy: {today} Today's Brain Exercise :maru_is_a_puppy:"
+				"text": f"{today}"
 			}
 		},
 		{
 			"type": "section",
 			"text": {
 				"type": "mrkdwn",
-				"text": "Hey Genius, *BRING IT ON!!!!!*"
+				"text": ":ooh-left-top::ooh-right-top: \tAre you genius?\n:ooh-left-bottom::ooh-right-bottom: \tAre you? Are you? Are you?"
 			}
+		},
+		{
+			"type": "divider"
 		},
 		{
 			"type": "actions",
@@ -71,7 +75,12 @@ def build_message():
 						"text": ":waffle: Waffle"
 					},
 					"url": "https://wafflegame.net/"
-				},
+				}
+			]
+		},
+		{
+			"type": "actions",
+			"elements": [
 				{
 					"type": "button",
 					"text": {
@@ -89,18 +98,8 @@ def build_message():
 					"url": "https://numberle.org/"
 				}
 			]
-		},
-		{
-			"type": "divider"
-		},
-		{
-			"type": "section",
-			"text": {
-				"type": "plain_text",
-				"text": "maru luvs you. maru is a puppy. :maru_heart:",
-			}
-		},
-    ]
+		}
+	]
 
 
 if __name__ == "__main__":
