@@ -1,100 +1,139 @@
-import os
-import pytz 
 import datetime
+import os
+import random
+import time
 
+import pytz
+from selenium import webdriver
+from selenium.webdriver.chrome.service import Service
+from selenium.webdriver.common.by import By
 from slack_sdk import WebClient
 from slack_sdk.errors import SlackApiError
+from webdriver_manager.chrome import ChromeDriverManager
 
-
-SLACK_TOKEN = os.getenv("SLACK_TOKEN")
+SLACK_TOKEN = os.getenv("SLACK_BOT_TOKEN")
 CHANNEL_ID = os.getenv("CHANNEL_ID")
 
 
-def build_message():
+def get_random_problem():
+    options = webdriver.ChromeOptions()
+    options.add_argument("--headless")
+    options.add_argument("--no-sandbox")
+    options.add_argument("--disable-dev-shm-usage")
 
+    service = Service(ChromeDriverManager().install())
+    driver = webdriver.Chrome(service=service, options=options)
+
+    try:
+        driver.get("https://neetcode.io/practice?tab=neetcode150")
+        time.sleep(5)  # Wait for JavaScript to load the pagei
+
+        section_buttons = driver.find_elements(
+            By.CSS_SELECTOR, "button.accordion.button"
+        )
+        for button in section_buttons:
+            try:
+                button.click()
+                time.sleep(1)  # Small delay to allow content to load
+            except:
+                print("Skipping button (possibly already expanded)")
+
+        time.sleep(2)  # Ensure all sections are expanded)
+
+        problem_elements = driver.find_elements(
+            By.CSS_SELECTOR, "a[href^='/problems/']"
+        )
+        problems = [
+            {"title": el.text.strip(), "url": el.get_attribute("href")}
+            for el in problem_elements
+            if el.text.strip()
+        ]
+
+        driver.quit()
+
+        if not problems:
+            return "No problems found."
+
+        problem = random.choice(problems)
+        return problem
+
+    except Exception as e:
+        driver.quit()
+        return f"Error: {str(e)}"
+
+
+def build_message():
     kst = pytz.timezone("Asia/Seoul")
     today = datetime.datetime.now(kst).strftime("%m/%d")
+    problem = get_random_problem()
 
     return [
-		{
-			"type": "header",
-			"text": {
-				"type": "plain_text",
-				"text": f"{today}  Are you geinus? Are you? Are you? Are U? RU?"
-			}
-		},
-		{
-			"type": "actions",
-			"elements": [
-				{
-					"type": "button",
-					"text": {
-						"type": "plain_text",
-						"text": ":capital_abcd: WORDLE"
-					},
-					"url": "https://www.nytimes.com/games/wordle"
-				},
-				{
-					"type": "button",
-					"text": {
-						"type": "plain_text",
-						"text": ":jigsaw: 꼬들"
-					},
-					"url": "https://kordle.kr"
-				},
-				{
-					"type": "button",
-					"text": {
-						"type": "plain_text",
-						"text": ":quad_parrot: Quordle"
-					},
-					"url": "https://www.merriam-webster.com/games/quordle"
-				},
-				{
-					"type": "button",
-					"text": {
-						"type": "plain_text",
-						"text": ":10_10: Contexto"
-					},
-					"url": "https://contexto.me/"
-				},
-				{
-					"type": "button",
-					"text": {
-						"type": "plain_text",
-						"text": ":waffle: Waffle"
-					},
-					"url": "https://wafflegame.net/"
-				},
-				{
-					"type": "button",
-					"text": {
-						"type": "plain_text",
-						"text": ":cat-roomba-exceptionally-fast: Connections"
-					},
-					"url": "https://www.nytimes.com/games/connections"
-				},
-				{
-					"type": "button",
-					"text": {
-						"type": "plain_text",
-						"text": ":maru_is_a_puppy: Numberle"
-					},
-					"url": "https://numberle.org/"
-				}
-			]
-		}
-	]
+        {
+            "type": "header",
+            "text": {
+                "type": "plain_text",
+                "text": f"{today} Dear my servants, Are you genius?",
+            },
+        },
+        {
+            "type": "actions",
+            "elements": [
+                {
+                    "type": "button",
+                    "text": {"type": "plain_text", "text": ":kirby_dance: RANDOM"},
+                    "url": problem["url"],
+                },
+                {
+                    "type": "button",
+                    "text": {"type": "plain_text", "text": ":capital_abcd: Wordle"},
+                    "url": "https://www.nytimes.com/games/wordle",
+                },
+                {
+                    "type": "button",
+                    "text": {"type": "plain_text", "text": ":jigsaw: 꼬들"},
+                    "url": "https://kordle.kr",
+                },
+                {
+                    "type": "button",
+                    "text": {"type": "plain_text", "text": ":ms_windows: Quordle"},
+                    "url": "https://www.merriam-webster.com/games/quordle",
+                },
+                {
+                    "type": "button",
+                    "text": {
+                        "type": "plain_text",
+                        "text": ":maru_is_a_puppy: Numberle",
+                    },
+                    "url": "https://numberle.org/",
+                },
+                {
+                    "type": "button",
+                    "text": {"type": "plain_text", "text": ":10_10: Contexto"},
+                    "url": "https://contexto.me/",
+                },
+                {
+                    "type": "button",
+                    "text": {"type": "plain_text", "text": ":waffle: Waffle"},
+                    "url": "https://wafflegame.net/",
+                },
+            ],
+        },
+    ]
+
+
+# print(build_message())
 
 
 if __name__ == "__main__":
     client = WebClient(token=SLACK_TOKEN)
-    
+
     try:
         response = client.chat_postMessage(
             channel=CHANNEL_ID,
             blocks=build_message(),
-            unfurl_links=False, # Don't show preview of the link
+            unfurl_links=False,  # Don't show preview of the link
+            text="If you see this message, please check the bot's configuration.",
         )
+        print(f"chat_postMessage: response={response}")
     except SlackApiError as e:
         assert e.response["error"]
