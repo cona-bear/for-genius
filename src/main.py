@@ -16,6 +16,14 @@ CHANNEL_ID = os.getenv("CHANNEL_ID")
 
 
 def get_random_problem():
+    """Fetches a random problem url from the NeetCode 150 website.
+
+    @deprecated
+
+    Example:
+        problem_url = get_random_problem()
+        print(problem_url)
+    """
     options = webdriver.ChromeOptions()
     options.add_argument("--headless")
     options.add_argument("--no-sandbox")
@@ -65,24 +73,19 @@ def get_random_problem():
 def build_message():
     kst = pytz.timezone("Asia/Seoul")
     today = datetime.datetime.now(kst).strftime("%m/%d")
-    problem = get_random_problem()
+    seed = datetime.datetime.now(kst).strftime("%Y%m%d")
 
     return [
         {
             "type": "header",
             "text": {
                 "type": "plain_text",
-                "text": f"{today} Dear my servants, Are you genius?",
+                "text": f"{today} Good News! You're a genius!",
             },
         },
         {
             "type": "actions",
             "elements": [
-                {
-                    "type": "button",
-                    "text": {"type": "plain_text", "text": ":kirby_dance: RANDOM"},
-                    "url": problem["url"],
-                },
                 {
                     "type": "button",
                     "text": {"type": "plain_text", "text": ":capital_abcd: Wordle"},
@@ -104,7 +107,7 @@ def build_message():
                         "type": "plain_text",
                         "text": ":maru_is_a_puppy: Numberle",
                     },
-                    "url": "https://numberle.org/",
+                    "url": f"https://numberle.org/?seed={seed}",
                 },
                 {
                     "type": "button",
@@ -119,9 +122,6 @@ def build_message():
             ],
         },
     ]
-
-
-# print(build_message())
 
 
 if __name__ == "__main__":
