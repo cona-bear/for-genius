@@ -80,7 +80,7 @@ def build_message():
             "type": "header",
             "text": {
                 "type": "plain_text",
-                "text": f"{today} Welcome! You're babo and babo means genius in Korean",
+                "text": f"{today} Hello Genius! What do you call a bear without ears?",
             },
         },
         {
