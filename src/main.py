@@ -80,7 +80,7 @@ def build_message():
             "type": "header",
             "text": {
                 "type": "plain_text",
-                "text": f"{today} Hello Genius! What do you call a bear without ears?",
+                "text": f"{today} Hello Genius! What has to be broken before you can use it?",
             },
         },
         {
