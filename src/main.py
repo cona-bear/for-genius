@@ -119,6 +119,11 @@ def build_message():
                     "text": {"type": "plain_text", "text": ":waffle: Waffle"},
                     "url": "https://wafflegame.net/",
                 },
+                {
+                    "type": "button",
+                    "text": {"type": "plain_text", "text": ":earth_asia: Globle"},
+                    "url": "https://globle.org/",
+                },
             ],
         },
     ]
