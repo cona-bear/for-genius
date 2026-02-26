@@ -107,6 +107,11 @@ def build_message():
                 },
                 {
                     "type": "button",
+                    "text": {"type": "plain_text", "text": ":earth_asia: Globle"},
+                    "url": "https://globle.org/",
+                },
+                {
+                    "type": "button",
                     "text": {
                         "type": "plain_text",
                         "text": ":maru_is_a_puppy: Numberle",
@@ -122,11 +127,6 @@ def build_message():
                     "type": "button",
                     "text": {"type": "plain_text", "text": ":waffle: Waffle"},
                     "url": "https://wafflegame.net/",
-                },
-                {
-                    "type": "button",
-                    "text": {"type": "plain_text", "text": ":earth_asia: Globle"},
-                    "url": "https://globle.org/",
                 },
             ],
         },
