@@ -69,13 +69,34 @@ def get_random_problem():
         driver.quit()
         return f"Error: {str(e)}"
 
+def generate_random_fortune_cookie():
+    """Generates a random fortune cookie quote.
+
+    Example:
+        fortune_cookie = generate_random_fortune_cookie()
+        print(fortune_cookie)
+    """
+    QUOTES = [
+        "A thrilling time is in your immediate future.",
+        "Your hard work will payoff today.",
+        "A soft voice may be awfully persuasive.",
+        "The luck you’ve been looking for is right around the corner.",
+        "An unexpected acquaintance will bring you good memories.",
+        "Your mind is a treasure chest of creative ideas.",
+        "Good things take time. Be patient.",
+        "A smile is your personal welcome mat.",
+        "Believe it can be done. Success is yours.",
+        "Your kindness will lead you to a great path."
+    ]
+    return random.choice(QUOTES)
+
 
 def build_message():
     kst = pytz.timezone("Asia/Seoul")
     today = datetime.datetime.now(kst).strftime("%m/%d")
     seed = datetime.datetime.now(kst).strftime("%Y%m%d")
 
-    header_text = f"{today} Good News! You are a genius!"
+    header_text = f"{today} Emergency: You are too cool today!"
     if today == "02/21":
         header_text = f"{today} Happy Birthday, All Hail Queen Cona!"
 
@@ -120,16 +141,20 @@ def build_message():
                 },
                 {
                     "type": "button",
-                    "text": {"type": "plain_text", "text": ":10_10: Contexto"},
-                    "url": "https://contexto.me/",
-                },
-                {
-                    "type": "button",
                     "text": {"type": "plain_text", "text": ":waffle: Waffle"},
                     "url": "https://wafflegame.net/",
                 },
             ],
         },
+        {
+            "type": "context",
+            "elements": [
+                {
+                    "type": "mrkdwn",
+                    "text": f":fortune_cookie: {generate_random_fortune_cookie()}",
+                }
+            ]
+        }
     ]
 
 
