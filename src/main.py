@@ -96,7 +96,7 @@ def build_message():
     today = datetime.datetime.now(kst).strftime("%m/%d")
     seed = datetime.datetime.now(kst).strftime("%Y%m%d")
 
-    header_text = f"{today} Conabot missed you. (Conabot knows where you live.)"
+    header_text = f"{today} My 'Sad Bot' mode has been deactivated. Conabot is now in 'Party Mode'! :party-cat:"
     if today == "02/21":
         header_text = f"{today} Happy Birthday, All Hail Queen Cona!"
 
