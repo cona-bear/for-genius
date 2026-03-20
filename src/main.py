@@ -77,16 +77,21 @@ def generate_random_fortune_cookie():
         print(fortune_cookie)
     """
     QUOTES = [
-        "A thrilling time is in your immediate future.",
-        "Your hard work will payoff today.",
-        "A soft voice may be awfully persuasive.",
-        "The luck you’ve been looking for is right around the corner.",
-        "An unexpected acquaintance will bring you good memories.",
-        "Your mind is a treasure chest of creative ideas.",
-        "Good things take time. Be patient.",
-        "A smile is your personal welcome mat.",
-        "Believe it can be done. Success is yours.",
-        "Your kindness will lead you to a great path."
+        "Laughter is timeless, imagination has no age, and dreams are forever. (Walt Disney)",
+        "The flower that blooms in adversity is the most rare and beautiful of all. (Mulan)",
+        "Even miracles take a little time. (Cinderella)",
+        "Remember, you're the one who can fill the world with sunshine. (Snow White)",
+        "Adventure is out there! (Up)",
+        "Your identity is your most valuable possession. Protect it. (The Incredibles)",
+        "The past can hurt. But the way I see it, you can either run from it, or learn from it. (Lion King)",
+        "Life's a little bit messy. We all make mistakes. (Zootopia)",
+        "Just keep swimming. (Finding Nemo)",
+        "Believe you can, then you will. (Mulan)",
+        "Today is a good day to try. (The Hunchback of Notre Dame)",
+        "All it takes is faith and trust. (Peter Pan)",
+        "To infinity and beyond! (Toy Story)",
+        "Our fate lives within us. You only have to be brave enough to see it. (Brave)",
+        "If you can dream it, you can do it. (Walt Disney)"
     ]
     return random.choice(QUOTES)
 
@@ -96,7 +101,7 @@ def build_message():
     today = datetime.datetime.now(kst).strftime("%m/%d")
     seed = datetime.datetime.now(kst).strftime("%Y%m%d")
 
-    header_text = f"{today} My 'Sad Bot' mode has been deactivated. Conabot is now in 'Party Mode'! :party-cat:"
+    header_text = f"{today} Can you beat the Cona Bot?"
     if today == "02/21":
         header_text = f"{today} Happy Birthday, All Hail Queen Cona!"
 
