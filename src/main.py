@@ -69,6 +69,7 @@ def get_random_problem():
         driver.quit()
         return f"Error: {str(e)}"
 
+
 def generate_random_fortune_cookie():
     """Generates a random fortune cookie quote.
 
@@ -91,7 +92,7 @@ def generate_random_fortune_cookie():
         "All it takes is faith and trust. (Peter Pan)",
         "To infinity and beyond! (Toy Story)",
         "Our fate lives within us. You only have to be brave enough to see it. (Brave)",
-        "If you can dream it, you can do it. (Walt Disney)"
+        "If you can dream it, you can do it. (Walt Disney)",
     ]
     return random.choice(QUOTES)
 
@@ -101,7 +102,7 @@ def build_message():
     today = datetime.datetime.now(kst).strftime("%m/%d")
     seed = datetime.datetime.now(kst).strftime("%Y%m%d")
 
-    header_text = f"{today} You ate and left no crumbs :crumb-cat:"
+    header_text = f"{today} All answers are 'FOOL' today. Or are you?"
     if today == "02/21":
         header_text = f"{today} Happy Birthday, All Hail Queen Cona!"
 
@@ -118,36 +119,33 @@ def build_message():
             "elements": [
                 {
                     "type": "button",
-                    "text": {"type": "plain_text", "text": ":capital_abcd: Wordle"},
-                    "url": "https://www.nytimes.com/games/wordle",
+                    "text": {"type": "plain_text", "text": ":question-mario:"},
+                    "url": "https://storage.cloud.google.com/conaa/babo.html",
                 },
                 {
                     "type": "button",
-                    "text": {"type": "plain_text", "text": ":jigsaw: 꼬들"},
-                    "url": "https://kordle.kr",
+                    "text": {"type": "plain_text", "text": ":question-mario:"},
+                    "url": "https://storage.cloud.google.com/conaa/genius.html",
                 },
                 {
                     "type": "button",
-                    "text": {"type": "plain_text", "text": ":ms_windows: Quordle"},
-                    "url": "https://www.merriam-webster.com/games/quordle",
+                    "text": {"type": "plain_text", "text": ":question-mario:"},
+                    "url": "https://storage.cloud.google.com/conaa/fool.html",
                 },
                 {
                     "type": "button",
-                    "text": {"type": "plain_text", "text": ":earth_asia: Globle"},
-                    "url": "https://globle.org/",
+                    "text": {"type": "plain_text", "text": ":question-mario:"},
+                    "url": "https://storage.cloud.google.com/conaa/fool.html",
                 },
                 {
                     "type": "button",
-                    "text": {
-                        "type": "plain_text",
-                        "text": ":maru_is_a_puppy: Numberle",
-                    },
-                    "url": f"https://numberle.org/?seed={seed}",
+                    "text": {"type": "plain_text", "text": ":question-mario:"},
+                    "url": f"https://storage.cloud.google.com/conaa/fool.html",
                 },
                 {
                     "type": "button",
-                    "text": {"type": "plain_text", "text": ":waffle: Waffle"},
-                    "url": "https://wafflegame.net/",
+                    "text": {"type": "plain_text", "text": ":question-mario:"},
+                    "url": "https://storage.cloud.google.com/conaa/fool.html",
                 },
             ],
         },
@@ -158,8 +156,8 @@ def build_message():
                     "type": "mrkdwn",
                     "text": f":fortune_cookie: {generate_random_fortune_cookie()}",
                 }
-            ]
-        }
+            ],
+        },
     ]
 
 

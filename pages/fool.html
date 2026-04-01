@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cuter Cat Clicker!</title>
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            background-color: #ffffff;
+            font-family: 'Arial', sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+        }
+
+        #hint {
+            position: absolute;
+            font-size: 2rem;
+            color: #ccc;
+            pointer-events: none;
+            transition: opacity 0.3s;
+        }
+
+        #cat-container {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+        }
+
+        .cat {
+            position: absolute;
+            transform: translate(-50%, -50%);
+            --cat-color: #333;
+            --eye-color: #fff;
+        }
+
+        .cat-head {
+            width: 130px; /* Sightly larger for cuteness */
+            height: 100px;
+            background-color: var(--cat-color);
+            border-radius: 50% 50% 45% 45%;
+            position: relative;
+        }
+
+        .cat-head::before, .cat-head::after {
+            content: '';
+            position: absolute;
+            top: -28px;
+            width: 0;
+            height: 0;
+            border-left: 28px solid transparent;
+            border-right: 28px solid transparent;
+            border-bottom: 55px solid var(--cat-color);
+        }
+
+        .cat-head::before { left: 0px; transform: rotate(-15deg); }
+        .cat-head::after { right: 0px; transform: rotate(15deg); }
+
+        /* --- UPDATED: CUTER & VARIED EYES --- */
+        .eyes {
+            position: absolute;
+            top: 35px;
+            left: 15px;
+            right: 15px;
+            height: 35px;
+            display: flex;
+            justify-content: space-around; /* Better spacing for large eyes */
+        }
+
+        .eye {
+            width: 35px; /* Larger eyes */
+            height: 35px;
+            background-color: var(--eye-color);
+            border-radius: 50%;
+            position: relative;
+            overflow: hidden; /* Crucial for clipping pupils/lids */
+            border: 2px solid #000; /* Define the eye edge */
+        }
+
+        /* Large Round Pupil (Default) */
+        .pupil {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 20px;
+            height: 20px;
+            background-color: #000;
+            border-radius: 50%;
+        }
+
+        /* Sparkle in the eye */
+        .pupil::after {
+            content: '';
+            position: absolute;
+            top: 3px;
+            left: 3px;
+            width: 7px;
+            height: 7px;
+            background-color: #fff;
+            border-radius: 50%;
+        }
+
+        /* --- Eye Expressions (applied to .eye via JS) --- */
+
+        /* Angry/Frowning lids */
+        .eye.angry::before {
+            content: '';
+            position: absolute;
+            top: -10px;
+            left: -10px;
+            width: 55px;
+            height: 25px;
+            background-color: var(--cat-color);
+            transform: rotate(20deg);
+            z-index: 1;
+        }
+        .eye.angry .pupil { top: 60%; } /* Push pupil down */
+
+        /* Sad/Pleading lids */
+        .eye.sad::before {
+            content: '';
+            position: absolute;
+            top: -10px;
+            left: -10px;
+            width: 55px;
+            height: 25px;
+            background-color: var(--cat-color);
+            transform: rotate(-20deg);
+            z-index: 1;
+        }
+        
+        /* Squinting/Happy (line eyes) */
+        .eye.squint {
+            background-color: transparent;
+            border: none;
+        }
+        .eye.squint .pupil { display: none; }
+        .eye.squint::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background-color: #000;
+            border-radius: 2px;
+            transform: translateY(-50%);
+        }
+
+        /* --- Eyebrows --- */
+        .eyebrows {
+            position: absolute;
+            top: 15px;
+            left: 20px;
+            right: 20px;
+            height: 15px;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .brow {
+            width: 30px;
+            height: 4px;
+            background-color: #000;
+            border-radius: 2px;
+            opacity: 0; /* Hidden by default */
+        }
+
+        /* Brow variants (applied via JS) */
+        .brow.angry { opacity: 1; transform: rotate(15deg); }
+        .brow.sad { opacity: 1; transform: rotate(-15deg); }
+
+
+        #message {
+            display: none;
+            color: #000;
+            font-size: 5rem;
+            font-weight: bold;
+            text-align: center;
+            z-index: 10;
+            text-shadow: 0 0 10px #ff00ff, 0 0 20px #00ffff;
+            animation: pop 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        @keyframes pop {
+            0% { transform: scale(0); }
+            100% { transform: scale(1); }
+        }
+    </style>
+</head>
+<body>
+
+    <div id="hint">Click anywhere!</div>
+    <div id="cat-container"></div>
+    <div id="message">HAPPY APRIL FOOLS' DAY! 🤡🐱</div>
+
+    <script>
+        const container = document.getElementById('cat-container');
+        const hint = document.getElementById('hint');
+        const messageDiv = document.getElementById('message');
+        
+        let clickCount = 0;
+        const maxClicks = 5;
+
+        // Expression options
+        const eyeExpressions = ['normal', 'angry', 'sad', 'squint'];
+        const browExpressions = ['none', 'angry', 'sad'];
+
+        function createExpressiveCat(x, y) {
+            const cat = document.createElement('div');
+            cat.className = 'cat';
+            
+            const offsetX = (Math.random() - 0.5) * 40;
+            const offsetY = (Math.random() - 0.5) * 40;
+            cat.style.left = `${x + offsetX}px`;
+            cat.style.top = `${y + offsetY}px`;
+
+            const scale = Math.random() * 0.4 + 0.8; // 0.8x to 1.2x
+            const rotation = (Math.random() - 0.5) * 30;
+            cat.style.transform = `translate(-50%, -50%) scale(${scale}) rotate(${rotation}deg)`;
+
+            const hue = Math.random() * 360;
+            cat.style.setProperty('--cat-color', `hsl(${hue}, 70%, 65%)`); // Brighter colors for cuteness
+
+            // DOM Construction
+            const catHead = document.createElement('div');
+            catHead.className = 'cat-head';
+            
+            // 1. Add Eyebrows
+            const eyebrowsDiv = document.createElement('div');
+            eyebrowsDiv.className = 'eyebrows';
+            const leftBrow = document.createElement('div');
+            leftBrow.className = 'brow';
+            const rightBrow = document.createElement('div');
+            rightBrow.className = 'brow';
+            
+            // Randomize Brows
+            const randomBrow = browExpressions[Math.floor(Math.random() * browExpressions.length)];
+            if (randomBrow !== 'none') {
+                leftBrow.classList.add(randomBrow);
+                rightBrow.classList.add(randomBrow);
+            }
+            // (Sad brows need mirror rotation, but complex in pure CSS without more classes)
+
+            eyebrowsDiv.appendChild(leftBrow);
+            eyebrowsDiv.appendChild(rightBrow);
+            catHead.appendChild(eyebrowsDiv);
+
+
+            // 2. Add Eyes
+            const eyesDiv = document.createElement('div');
+            eyesDiv.className = 'eyes';
+            
+            const leftEye = document.createElement('div');
+            leftEye.className = 'eye';
+            const leftPupil = document.createElement('div');
+            leftPupil.className = 'pupil';
+            leftEye.appendChild(leftPupil);
+            
+            const rightEye = document.createElement('div');
+            rightEye.className = 'eye';
+            const rightPupil = document.createElement('div');
+            rightPupil.className = 'pupil';
+            rightEye.appendChild(rightPupil);
+
+            // Randomize Eye Expression
+            const randomEye = eyeExpressions[Math.floor(Math.random() * eyeExpressions.length)];
+            if (randomEye !== 'normal') {
+                leftEye.classList.add(randomEye);
+                rightEye.classList.add(randomEye);
+            }
+
+            eyesDiv.appendChild(leftEye);
+            eyesDiv.appendChild(rightEye);
+            catHead.appendChild(eyesDiv);
+            
+            cat.appendChild(catHead);
+            container.appendChild(cat);
+        }
+
+        window.addEventListener('click', (e) => {
+            clickCount++;
+
+            if (clickCount === 1) {
+                hint.style.opacity = '0';
+            }
+
+            if (clickCount <= maxClicks) {
+                createExpressiveCat(e.clientX, e.clientY);
+            } else {
+                container.innerHTML = ''; // Remove all cats
+                hint.style.display = 'none';
+                messageDiv.style.display = 'block';
+            }
+        });
+    </script>
+</body>
+</html>
