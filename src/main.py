@@ -101,7 +101,7 @@ def build_message():
     today = datetime.datetime.now(kst).strftime("%m/%d")
     seed = datetime.datetime.now(kst).strftime("%Y%m%d")
 
-    header_text = f"{today} You ate and left no crumbs :crumb-cat:"
+    header_text = f"{today} Bussin, no cap :billed_cap: 모자를 벗고 버스를 타라! JK"
     if today == "02/21":
         header_text = f"{today} Happy Birthday, All Hail Queen Cona!"
 
