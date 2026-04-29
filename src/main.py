@@ -101,7 +101,7 @@ def build_message():
     today = datetime.datetime.now(kst).strftime("%m/%d")
     seed = datetime.datetime.now(kst).strftime("%Y%m%d")
 
-    header_text = f"{today} We have 31 genius heroes here. Any feedback for me? I know I'm perfect tho"
+    header_text = f"{today} Mission. Share the most recent picture you took"
     if today == "02/21":
         header_text = f"{today} Happy Birthday, All Hail Queen Cona!"
 
