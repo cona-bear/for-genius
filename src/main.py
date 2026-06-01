@@ -12,7 +12,7 @@ from slack_sdk.errors import SlackApiError
 from webdriver_manager.chrome import ChromeDriverManager
 
 SLACK_TOKEN = os.getenv("SLACK_BOT_TOKEN")
-CHANNEL_ID = os.getenv("CHANNEL_ID")
+SLACK_CHANNEL_ID = os.getenv("SLACK_CHANNEL_ID")
 
 
 def get_random_problem():
@@ -71,6 +71,8 @@ def get_random_problem():
 
 def generate_random_fortune_cookie():
     """Generates a random fortune cookie quote.
+
+    @deprecated
 
     Example:
         fortune_cookie = generate_random_fortune_cookie()
@@ -150,15 +152,6 @@ def build_message():
                     "url": "https://wafflegame.net/",
                 },
             ],
-        },
-        {
-            "type": "context",
-            "elements": [
-                {
-                    "type": "mrkdwn",
-                    "text": f":fortune_cookie: {generate_random_fortune_cookie()}",
-                }
-            ]
         }
     ]
 
@@ -168,7 +161,7 @@ if __name__ == "__main__":
 
     try:
         response = client.chat_postMessage(
-            channel=CHANNEL_ID,
+            channel=SLACK_CHANNEL_ID,
             blocks=build_message(),
             unfurl_links=False,  # Don't show preview of the link
             text="If you see this message, please check the bot's configuration.",
