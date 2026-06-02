@@ -24,6 +24,6 @@ jobs:
       - name: Run Slack Message Script
         env:
           SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}
-          CHANNEL_ID: ${{ secrets.CHANNEL_ID }}
+          SLACK_CHANNEL_ID: ${{ secrets.SLACK_CHANNEL_ID }}
         run: python src/main.py
 
