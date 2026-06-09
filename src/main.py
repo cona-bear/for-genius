@@ -69,6 +69,7 @@ def get_random_problem():
         driver.quit()
         return f"Error: {str(e)}"
 
+
 def generate_random_fortune_cookie():
     """Generates a random fortune cookie quote.
 
@@ -93,7 +94,7 @@ def generate_random_fortune_cookie():
         "All it takes is faith and trust. (Peter Pan)",
         "To infinity and beyond! (Toy Story)",
         "Our fate lives within us. You only have to be brave enough to see it. (Brave)",
-        "If you can dream it, you can do it. (Walt Disney)"
+        "If you can dream it, you can do it. (Walt Disney)",
     ]
     return random.choice(QUOTES)
 
@@ -148,11 +149,11 @@ def build_message():
                 },
                 {
                     "type": "button",
-                    "text": {"type": "plain_text", "text": ":waffle: Waffle"},
-                    "url": "https://wafflegame.net/",
+                    "text": {"type": "plain_text", "text": ":poop: Poople"},
+                    "url": "https://poople.io/",
                 },
             ],
-        }
+        },
     ]
 
 
