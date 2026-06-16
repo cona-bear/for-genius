@@ -104,7 +104,7 @@ def build_message():
     today = datetime.datetime.now(kst).strftime("%m/%d")
     seed = datetime.datetime.now(kst).strftime("%Y%m%d")
 
-    header_text = f"{today} If you snooze you lose! :scream:"
+    header_text = f"{today} Rizz up the Cona Bot!"
     if today == "02/21":
         header_text = f"{today} Happy Birthday, All Hail Queen Cona!"
 
@@ -119,6 +119,11 @@ def build_message():
         {
             "type": "actions",
             "elements": [
+                {
+                    "type": "button",
+                    "text": {"type": "plain_text", "text": ":poop: Poople"},
+                    "url": "https://poople.io/",
+                },
                 {
                     "type": "button",
                     "text": {"type": "plain_text", "text": ":capital_abcd: Wordle"},
@@ -146,11 +151,6 @@ def build_message():
                         "text": ":maru_is_a_puppy: Numberle",
                     },
                     "url": f"https://numberle.org/?seed={seed}",
-                },
-                {
-                    "type": "button",
-                    "text": {"type": "plain_text", "text": ":poop: Poople"},
-                    "url": "https://poople.io/",
                 },
             ],
         },
