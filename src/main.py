@@ -104,7 +104,7 @@ def build_message():
     today = datetime.datetime.now(kst).strftime("%m/%d")
     seed = datetime.datetime.now(kst).strftime("%Y%m%d")
 
-    header_text = f"{today} Rizz up the Cona Bot!"
+    header_text = f"{today} Heads up! Bottoms up! Good boy"
     if today == "02/21":
         header_text = f"{today} Happy Birthday, All Hail Queen Cona!"
 
@@ -143,6 +143,11 @@ def build_message():
                     "type": "button",
                     "text": {"type": "plain_text", "text": ":earth_asia: Globle"},
                     "url": "https://globle.org/",
+                },
+                {
+                    "type": "button",
+                    "text": {"type": "plain_text", "text": ":yolo: Glyph"},
+                    "url": "https://glyph.today/",
                 },
                 {
                     "type": "button",
