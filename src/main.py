@@ -121,42 +121,34 @@ def build_message():
             "elements": [
                 {
                     "type": "button",
-                    "text": {"type": "plain_text", "text": ":poop: Poople"},
+                    "text": {"type": "plain_text", "text": ":poop:"},
                     "url": "https://poople.io/",
                 },
                 {
                     "type": "button",
-                    "text": {"type": "plain_text", "text": ":capital_abcd: Wordle"},
+                    "text": {"type": "plain_text", "text": ":capital_abcd:"},
                     "url": "https://www.nytimes.com/games/wordle",
                 },
                 {
                     "type": "button",
-                    "text": {"type": "plain_text", "text": ":jigsaw: 꼬들"},
+                    "text": {"type": "plain_text", "text": ":jigsaw:"},
                     "url": "https://kordle.kr",
                 },
                 {
                     "type": "button",
-                    "text": {"type": "plain_text", "text": ":ms_windows: Quordle"},
-                    "url": "https://www.merriam-webster.com/games/quordle",
-                },
-                {
-                    "type": "button",
-                    "text": {"type": "plain_text", "text": ":earth_asia: Globle"},
+                    "text": {"type": "plain_text", "text": ":earth_asia:"},
                     "url": "https://globle.org/",
                 },
                 {
                     "type": "button",
-                    "text": {"type": "plain_text", "text": ":yolo: Glyph"},
+                    "text": {"type": "plain_text", "text": ":yolo:"},
                     "url": "https://glyph.today/",
                 },
                 {
                     "type": "button",
-                    "text": {
-                        "type": "plain_text",
-                        "text": ":maru_is_a_puppy: Numberle",
-                    },
-                    "url": f"https://numberle.org/?seed={seed}",
-                },
+                    "text": {"type": "plain_text", "text": ":four-leaf-clover:"},
+                    "url": "https://hankgreen.com/fourbythree",
+                }
             ],
         },
     ]
