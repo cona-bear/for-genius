@@ -104,7 +104,7 @@ def build_message():
     today = datetime.datetime.now(kst).strftime("%m/%d")
     seed = datetime.datetime.now(kst).strftime("%Y%m%d")
 
-    header_text = f"{today} TBH, I feel really sad that my people (Brock, Woosang, Seungrok, Jaeyeon, Buyong) are leaving or taking a break. Do you feel same? I think Bear is more stupider than me. Well, I love y'all guys. I'll beat Bear so let me know if you have something :hankey: to talk about. I like to have a tea. VERY SPICY TEA"
+    header_text = f"{today} I like to have a tea. VERY SPICY TEA"
     if today == "02/21":
         header_text = f"{today} Happy Birthday, All Hail Queen Cona!"
 
