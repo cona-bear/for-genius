@@ -104,7 +104,7 @@ def build_message():
     today = datetime.datetime.now(kst).strftime("%m/%d")
     seed = datetime.datetime.now(kst).strftime("%Y%m%d")
 
-    header_text = f"{today} Ready to level up your second language? :sparkles: No perfection required. Just #trylingual!"
+    header_text = f"{today} Welcome to the show! :tada:"
     if today == "02/21":
         header_text = f"{today} Happy Birthday, All Hail Queen Cona!"
 
@@ -121,32 +121,32 @@ def build_message():
             "elements": [
                 {
                     "type": "button",
-                    "text": {"type": "plain_text", "text": ":poop:"},
+                    "text": {"type": "plain_text", "text": ":poop: For Pooper"},
                     "url": "https://poople.io/",
                 },
                 {
                     "type": "button",
-                    "text": {"type": "plain_text", "text": ":capital_abcd:"},
+                    "text": {"type": "plain_text", "text": ":capital_abcd: Wordle"},
                     "url": "https://www.nytimes.com/games/wordle",
                 },
                 {
                     "type": "button",
-                    "text": {"type": "plain_text", "text": ":jigsaw:"},
+                    "text": {"type": "plain_text", "text": ":jigsaw: 꼬들꼬들라면"},
                     "url": "https://kordle.kr",
                 },
                 {
                     "type": "button",
-                    "text": {"type": "plain_text", "text": ":earth_asia:"},
+                    "text": {"type": "plain_text", "text": ":earth_asia: Globle"},
                     "url": "https://globle.org/",
                 },
                 {
                     "type": "button",
-                    "text": {"type": "plain_text", "text": ":yolo:"},
+                    "text": {"type": "plain_text", "text": ":yolo: Glyph"},
                     "url": "https://glyph.today/",
                 },
                 {
                     "type": "button",
-                    "text": {"type": "plain_text", "text": ":four-leaf-clover:"},
+                    "text": {"type": "plain_text", "text": ":four-leaf-clover: Four by Three"},
                     "url": "https://hankgreen.com/fourbythree",
                 }
             ],
