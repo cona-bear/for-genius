@@ -146,8 +146,8 @@ def build_message():
                 },
                 {
                     "type": "button",
-                    "text": {"type": "plain_text", "text": ":four-leaf-clover: Four by Three"},
-                    "url": "https://hankgreen.com/fourbythree",
+                    "text": {"type": "plain_text", "text": ":yoda: SWordle"},
+                    "url": "https://wordle.starwars.guide/",
                 }
             ],
         },
