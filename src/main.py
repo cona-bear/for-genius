@@ -104,7 +104,7 @@ def build_message():
     today = datetime.datetime.now(kst).strftime("%m/%d")
     seed = datetime.datetime.now(kst).strftime("%Y%m%d")
 
-    header_text = f"{today} Me and the toys! Me and the toys!"
+    header_text = f"{today} You raise me uuuuup, so I can stand on mountain"
     if today == "02/21":
         header_text = f"{today} Happy Birthday, All Hail Queen Cona!"
 
@@ -121,7 +121,7 @@ def build_message():
             "elements": [
                 {
                     "type": "button",
-                    "text": {"type": "plain_text", "text": ":poop: For Pooper"},
+                    "text": {"type": "plain_text", "text": ":poop: ddong"},
                     "url": "https://poople.io/",
                 },
                 {
