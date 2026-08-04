@@ -146,8 +146,8 @@ def build_message():
                 },
                 {
                     "type": "button",
-                    "text": {"type": "plain_text", "text": ":yoda: SWordle"},
-                    "url": "https://wordle.starwars.guide/",
+                    "text": {"type": "plain_text", "text": ":kirby_pan:"},
+                    "url": get_random_problem(),
                 }
             ],
         },
