@@ -1,71 +1,55 @@
 import datetime
+import json
 import os
 import random
-import time
+import urllib.request
 
 import pytz
-from selenium import webdriver
-from selenium.webdriver.chrome.service import Service
-from selenium.webdriver.common.by import By
 from slack_sdk import WebClient
 from slack_sdk.errors import SlackApiError
-from webdriver_manager.chrome import ChromeDriverManager
 
 SLACK_TOKEN = os.getenv("SLACK_BOT_TOKEN")
 SLACK_CHANNEL_ID = os.getenv("SLACK_CHANNEL_ID")
 
 
 def get_random_problem():
-    """Fetches a random problem url from the NeetCode 150 website.
+    """Fetches a random free problem url from the NeetCode 150 practice list.
+
+    Problems flagged `free: false` by NeetCode are behind the "Get Pro Access"
+    paywall, so they are filtered out. Falls back to the practice page if the
+    list cannot be fetched, so a bad response never breaks the daily message.
 
     Example:
-        problem_url = get_random_problem()
-        print(problem_url["url"])
+        problem = get_random_problem()
+        print(problem) # {'title': 'Partition Labels', 'url': 'https://neetcode.io/problems/partition-labels/question'}
     """
-    options = webdriver.ChromeOptions()
-    options.add_argument("--headless")
-    options.add_argument("--no-sandbox")
-    options.add_argument("--disable-dev-shm-usage")
-
-    service = Service(ChromeDriverManager().install())
-    driver = webdriver.Chrome(service=service, options=options)
+    default = {"title": "NeetCode Practice", "url": "https://neetcode.io/practice"}
 
     try:
-        driver.get("https://neetcode.io/practice?tab=neetcode150")
-        time.sleep(5)  # Wait for JavaScript to load the pagei
-
-        section_buttons = driver.find_elements(
-            By.CSS_SELECTOR, "button.accordion.button"
+        request = urllib.request.Request(
+            "https://neetcode.io/api/getProblemListFunctionHttp",
+            headers={"Accept": "application/json"},
         )
-        for button in section_buttons:
-            try:
-                button.click()
-                time.sleep(1)  # Small delay to allow content to load
-            except:
-                print("Skipping button (possibly already expanded)")
-
-        time.sleep(2)  # Ensure all sections are expanded)
-
-        problem_elements = driver.find_elements(
-            By.CSS_SELECTOR, "a[href^='/problems/']"
-        )
-        problems = [
-            {"title": el.text.strip(), "url": el.get_attribute("href")}
-            for el in problem_elements
-            if el.text.strip()
-        ]
-
-        driver.quit()
-
-        if not problems:
-            return "No problems found."
-
-        problem = random.choice(problems)
-        return problem
-
+        with urllib.request.urlopen(request, timeout=30) as response:
+            problems = json.load(response)["data"]
     except Exception as e:
-        driver.quit()
-        return f"Error: {str(e)}"
+        print(f"Failed to fetch the NeetCode problem list: {e}")
+        return default
+
+    free_problems = [
+        {
+            "title": problem.get("name") or slug.replace("-", " ").title(),
+            "url": f"https://neetcode.io/problems/{slug}",
+        }
+        for slug, problem in problems.items()
+        if problem.get("tag") == "NeetCode150" and problem.get("free") is True
+    ]
+
+    if not free_problems:
+        print("No free problems found.")
+        return default
+
+    return random.choice(free_problems)
 
 
 def generate_random_fortune_cookie():
@@ -144,7 +128,7 @@ def build_message():
                 },
                 {
                     "type": "button",
-                    "text": {"type": "plain_text", "text": ":kirby_pan:"},
+                    "text": {"type": "plain_text", "text": ":kirby_pan: NeetCode"},
                     "url": get_random_problem()["url"],
                 }
             ],
