@@ -18,11 +18,9 @@ SLACK_CHANNEL_ID = os.getenv("SLACK_CHANNEL_ID")
 def get_random_problem():
     """Fetches a random problem url from the NeetCode 150 website.
 
-    @deprecated
-
     Example:
         problem_url = get_random_problem()
-        print(problem_url)
+        print(problem_url["url"])
     """
     options = webdriver.ChromeOptions()
     options.add_argument("--headless")
@@ -147,7 +145,7 @@ def build_message():
                 {
                     "type": "button",
                     "text": {"type": "plain_text", "text": ":kirby_pan:"},
-                    "url": get_random_problem(),
+                    "url": get_random_problem()["url"],
                 }
             ],
         },
