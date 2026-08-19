@@ -128,9 +128,14 @@ def build_message():
                 },
                 {
                     "type": "button",
+                    "text": {"type": "plain_text", "text": ":old_key: Clues by sam"},
+                    "url": "https://cluesbysam.com/",
+                },
+                {
+                    "type": "button",
                     "text": {"type": "plain_text", "text": ":kirby_pan: NeetCode"},
                     "url": get_random_problem()["url"],
-                }
+                },
             ],
         },
     ]
