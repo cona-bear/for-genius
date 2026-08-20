@@ -123,11 +123,6 @@ def build_message():
                 },
                 {
                     "type": "button",
-                    "text": {"type": "plain_text", "text": ":yolo: Glyph"},
-                    "url": "https://glyph.today/",
-                },
-                {
-                    "type": "button",
                     "text": {"type": "plain_text", "text": ":old_key: Clues by sam"},
                     "url": "https://cluesbysam.com/",
                 },
